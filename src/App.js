@@ -1,25 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import NavBar from "./content";
+import React, { useEffect } from "react";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#FFFFFF",
+    },
+    background: {
+      default: "#000000",
+    },
+  },
+});
+const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#000000",
+    },
+  },
+});
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      darkMode: localStorage.getItem("dark"),
+      theme:
+        localStorage.getItem("dark") === "true"
+          ? createTheme(darkTheme)
+          : createTheme(lightTheme),
+    };
+    this.changeTheme = this.changeTheme.bind(this);
+  }
+
+  componentDidMount() {
+    document
+      .getElementById("dark-mode")
+      .addEventListener("click", this.changeTheme);
+  }
+  changeTheme() {
+    if (this.state.theme.palette.mode === "light") {
+      this.setState({ theme: createTheme(darkTheme) });
+    } else {
+      this.setState({ theme: createTheme(lightTheme) });
+    }
+    console.log(this.state.theme);
+  }
+  render() {
+    return (
+      <React.Fragment>
+        <ThemeProvider theme={this.state.theme}>
+          <CssBaseline />
+          <NavBar />
+        </ThemeProvider>
+      </React.Fragment>
+    );
+  }
 }
-
-export default App;
