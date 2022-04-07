@@ -8,7 +8,7 @@ export default function NavBar() {
   return (
     <div id="nav-bar">
       <a id="logo" href="/">
-        <h1>Big Name Here</h1>
+        <h1>Very Big Name Here</h1>
       </a>
       <div id="menu">
         <a href="#">
@@ -22,7 +22,7 @@ export default function NavBar() {
         </a>
       </div>
       <button id="dark-mode" onClick={() => setDark(!dark)}>
-        {dark ? <DarkMode color="primary"/> : <LightMode color="primary"/>}
+        {dark ? <DarkMode color="primary" /> : <LightMode color="primary" />}
       </button>
     </div>
   );
